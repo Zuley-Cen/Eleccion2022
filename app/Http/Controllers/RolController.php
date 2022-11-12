@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Rol;
 
 class RolController extends Controller
 {
@@ -23,9 +24,14 @@ class RolController extends Controller
      */
     public function create()
     {
-        //
+        return view("rol.create");
     }
 
+    private function validateData(Request $request){
+        $request->validate([
+            'description' => 'required|max:100',
+            ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -34,7 +40,11 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateData($request);
+            $data['descripcion'] = $request->descripcion;
+            $rol = Rol::create($data);
+                return redirect('rol')->with('success',
+                $rol->descripcion . ' guardado satisfactoriamente ...');
     }
 
     /**

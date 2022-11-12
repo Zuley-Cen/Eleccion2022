@@ -37,5 +37,7 @@
             @endforeach
         </tbody>
     </table>
+    <input type="button" value="Hazme Click" onClick="showMessage('Test for function showMessage using jQuery');">
+    </input>
     <div>
         @endsection

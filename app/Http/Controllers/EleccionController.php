@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Casilla;
+use App\Models\Eleccion;
 
-class CasillaController extends Controller
+ class EleccionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class CasillaController extends Controller
      */
     public function index()
     {
-        $casillas = Casilla::all();
-        return view('casilla.list', compact('casillas'));
+        // echo "index";
+        $elecciones = Eleccion::all();
+        return view('eleccion/list', compact('elecciones'));
     }
 
     /**
@@ -25,13 +26,21 @@ class CasillaController extends Controller
      */
     public function create()
     {
-        return view("casilla.create");
+        //
+        return view ('eleccion/create');
     }
 
-    private function validateData(Request $request){
+    function validateData(Request $request)
+    {
         $request->validate([
-            'ubicacion' => 'required|max:100',
-            ]);
+            'periodo' => 'required',
+            'fecha'=>'required',
+            'fechaapertura'=>'required',
+            'horaapertura'=>'required',
+            'fechacierre'=>'required',
+            'horacierre'=>'required',
+            'observaciones'=>'required',
+        ]);
     }
     /**
      * Store a newly created resource in storage.
@@ -41,11 +50,20 @@ class CasillaController extends Controller
      */
     public function store(Request $request)
     {
-            $this->validateData($request);
-            $data['ubicacion'] = $request->ubicacion;
-            $casilla = Casilla::create($data);
-                return redirect('casilla')->with('success',
-                $casilla->ubicacion . ' guardado satisfactoriamente ...');
+        //
+        $this->validateData($request);
+        $data=[
+            'periodo'       => $request->periodo,
+		    'fecha'         => $request->fecha,
+		    'fechaapertura' => $request->fechaapertura,
+		    'horaapertura'  => $request->horaapertura,
+		    'fechacierre'   => $request->fechacierre,
+		    'horacierre'    => $request->horacierre,
+		    'observaciones' => $request->observaciones,
+        ];
+        $eleccion = Eleccion::create($data);
+        return redirect('eleccion')
+        ->with('success', $eleccion->periodo.' insertado correctamente');
     }
 
     /**
@@ -67,11 +85,9 @@ class CasillaController extends Controller
      */
     public function edit($id)
     {
-        $casilla = Casilla::find($id);
-        if($casilla)
-            return view('casilla.edit', compact('casilla',$casilla));
-        else
-            echo "No se encontró";
+        //
+        $eleccion = Eleccion::find($id);
+        return view('eleccion/edit', compact('eleccion'));
     }
 
     /**
@@ -83,11 +99,7 @@ class CasillaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateData($request);
-        $data['ubicacion']= $request->ubicacion;
-        Casilla::whereId($id)->update($data);
-            return redirect('casilla')
-            ->with('success', 'Actualizado correctamente...');
+        //
     }
 
     /**
@@ -98,8 +110,10 @@ class CasillaController extends Controller
      */
     public function destroy($id)
     {
-        Casilla::whereId($id)->delete();
-        return redirect('casilla')
-            ->with('success', 'El elemento fue borrado...');
+        //
+        Eleccion::whereId($id)->delete();
+        return redirect('eleccion')
+        ->with('success', 'eliminado');
+
     }
 }
