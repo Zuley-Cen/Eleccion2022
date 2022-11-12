@@ -66,7 +66,6 @@
             </div>
             <br><br>
 			<div id="visorArchivo">
-				<!--Aqui se desplegará el fichero-->
 			</div>
 
             <div class="form-group">
@@ -76,7 +75,7 @@
                     name="curp"
                     onfocusout="validate(this)"
                 >
-            </div>  
+            </div>
 
             <button type="submit"
             class="btn btn-primary">Guardar</button>
