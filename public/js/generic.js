@@ -25,3 +25,17 @@ function validate(item){
 $(document).ready(function(){
 
 });
+
+$(document).ready(function () {
+
+    $('.numberonly').keypress(function (e) {
+
+        var charCode = (e.which) ? e.which : e.keyCode
+
+        if (String.fromCharCode(charCode).match(/[^0-9]/g))
+
+            return false;
+
+    });
+
+});

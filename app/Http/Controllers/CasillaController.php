@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Casilla;
+use Barryvdh\DomPDF\Facade\pdf as PDF;
 
 class CasillaController extends Controller
 {
@@ -102,4 +103,13 @@ class CasillaController extends Controller
         return redirect('casilla')
             ->with('success', 'El elemento fue borrado...');
     }
+
+    public function generatepdf(){
+        $casillas = Casilla::all();
+        $pdf = PDF::loadView('casilla/list', ['casillas'=>$casillas]);
+        //return PDF::loadView('casilla/list', ['casillas'=>$casillas]) -> stream('archivo.pdf');
+        return $pdf->download('archivo.pdf');
+        //return PDF::loadView('casilla/list', ['casillas'=>$casillas]) -> stream('archivo.pdf');
+    }
+
 }

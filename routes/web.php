@@ -21,7 +21,7 @@ use App\Http\Controllers\Auth\LoginController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('casilla/pdf',[CasillaController::class, 'generatepdf']);
 Route::resource('casilla',CasillaController::class);
 Route::resource("candidato", CandidatoController::class);
 Route::resource('rol',RolController::class);
@@ -33,3 +33,4 @@ Route::get('/login/facebook/callback',[LoginController::class, 'handleProviderFa
 Route::middleware(['auth'])->group(function(){
     Route::resource('voto', VotoController::class);
 });
+

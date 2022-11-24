@@ -23,10 +23,9 @@
         <form method="post"
             action="{{ route('candidato.store') }} "
             enctype="multipart/form-data"
-            onsubmit="return validateData();">
-            {{ csrf_field() }}
-            enctype="multipart/form-data"
+            onsubmit="return validateData();"
             onsubmit="return validateType('perfil', 'aplication/pdf');">
+            {{ csrf_field() }}
             @csrf
             <div class="form-group">
                 <label for="nombrecompleto">Nombre completo:</label>
@@ -74,6 +73,16 @@
                     id="curp"
                     name="curp"
                     onfocusout="validate(this)"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="edad">edad:</label>
+                <input type="text"
+                    class="numberonly"
+                    id="edad"
+                    name="edad"
+                    maxlength="3"
                 >
             </div>
 
